@@ -30,6 +30,8 @@ parser.add_argument('-w', '--width', type=int, metavar='', help='Width of each i
 parser.add_argument('-H', '--height', type=int, metavar='', help='Height of each individual Pixel (R-G-B).')
 parser.add_argument('-b', '--block', type=int, metavar='', help='Block-Size defines the overall size of the repeated Pixel-Pattern')
 parser.add_argument('-B', '--black', type=int, metavar='', help='Shift brightness of black pixels to simulate backlight shining - otherwise no pixels are visible in black areas. Value between 0-100 (0 = black 100 = white)')
+parser.add_argument('-rW', '--resizedWidth', type=int, metavar='', help='Width of the resized image. (Optional)')
+parser.add_argument('-rH', '--resizedHeight', type=int, metavar='', help='Height of the resized image. (Optional)')
 args = parser.parse_args()
 
 source = args.file # Source image filename
@@ -71,6 +73,12 @@ if isinstance(args.format, str):
 		print("Unsupported Fileformat.")
 		exit()
 
+# Check if desired size is wanted
+if isinstance(args.resizedWidth, int) and isinstance(args.resizedHeight, int):
+	if args.resizedWidth>0 and args.resizedHeight>0 :
+		desired_size = (args.resizedWidth, args.resizedHeight)
+else:
+	desired_size = 0
 
 def main(source):
 
@@ -100,8 +108,12 @@ def main(source):
 	new_fn = fn + ext
 	print(f'Image saved as {new_fn}{export_fformat}')
 
-	i1.save(output_path + new_fn + export_fformat, export_fformats[export_fformat])
-
+	if isinstance(desired_size, tuple):
+		i1 = i1.resize(desired_size)
+		print('Image is Resized')
+		i1.save(output_path + new_fn + export_fformat, export_fformats[export_fformat])
+	else:
+		i1.save(output_path + new_fn + export_fformat, export_fformats[export_fformat])
 
 def process(img, d1, x_orig, y_orig):
 
