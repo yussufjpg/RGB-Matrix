@@ -29,4 +29,4 @@ Consider block size before resizing because resizing applies after the effect is
 <img src="Comparison.jpg" width="30%"><br>
 First part of the image is resized while considering the result size but the second part of it resized without considering as you see there is significant difference between these two examples so resized image size should be one of the multiples of result size.
 <br><h3>Tips:</h3>
-<ul><li>Two output formats are supported (.jpg & .png). Choosing png as output file format results in a pretty clean matrix, while the compression for .jpg results in a more realistic, organic look.</li><li>A pretty low resolution is recommended for the source image. The effect is more visible that way.</li></ul>
+<ul><li>Two output formats are supported (.jpg & .png). Choosing png as output file format results in a pretty clean matrix, while the compression for .jpg results in a more realistic, organic look.</li><li>A pretty low resolution is recommended for the source image. The effect is more visible that way.</li><li>Sometimes changing black pixel brightness can help getting better results when resizing.</li></ul>
